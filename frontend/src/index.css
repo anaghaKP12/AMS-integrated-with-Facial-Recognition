@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.overflow-auto {
+    overflow-y: auto;
+    max-height: 400px; /* Adjust the max-height according to your needs */
+}
