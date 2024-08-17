@@ -6,11 +6,10 @@ const jwt = require('jsonwebtoken');
 const fetchuser = require('../middleware/fetchuser');
 const JWT_SECRET = 'ams@faculty';
 
-// Create a user using : POST 'api/auth/createuser'. Doesn't require Auth.
+
 router.post('/createuser', async (req, res)=>{
 
       let success = false;
-      console.log("hey create user")
       // Unique email check
       try{
       let user = await User.findOne({email:req.body.email});
@@ -47,7 +46,7 @@ router.post('/createuser', async (req, res)=>{
     }
 })
 
-// Authenticate a user using : POST 'api/auth/login'. Doesn't require Auth.
+
 router.post('/login', async (req, res)=>{
   let success = false;
   const {email, password} = req.body;
@@ -88,7 +87,7 @@ router.post('/login', async (req, res)=>{
 
 })
 
-// Get a user using : POST 'api/auth/getuser'. Requires Auth.
+
 router.get('/getuser',fetchuser, async (req, res)=>{
   try{
     const userId = req.user.id;

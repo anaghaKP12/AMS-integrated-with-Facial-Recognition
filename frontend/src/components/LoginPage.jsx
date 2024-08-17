@@ -5,11 +5,6 @@ import axios from 'axios';
 function LoginPage() {
     const navigate = useNavigate();
 
-    // useEffect(() => {
-    //     if (localStorage.getItem('token')) {
-    //         navigate('/home');
-    //     }
-    // }, [navigate]);
 
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");

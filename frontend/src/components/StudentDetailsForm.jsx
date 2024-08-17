@@ -26,15 +26,12 @@ const StudentDetails = () => {
     const [students, setStudents] = useState([]);
 
     useEffect(() => {
-        console.log("Making request")
         fetchStudents();
     }, []);
 
     const fetchStudents = async () => {
         try {
-            console.log("Making request")
             const response = await axios.get('http://localhost:5000/api/students');
-            // console.log(response.data);
             setStudents(response.data);
         } catch (error) {
             console.error('Error fetching student data:', error);
@@ -49,9 +46,7 @@ const StudentDetails = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            // console.log(studentData);
             await axios.post('http://localhost:5000/api/students', studentData);
-            // console.log(studentData);
             fetchStudents();
             resetForm();
         } catch (error) {
@@ -60,9 +55,7 @@ const StudentDetails = () => {
     };
     const handleDelete = async (std_id) => {
         try {
-            // console.log(studentData);
             await axios.delete(`http://localhost:5000/api/students/${std_id}`);
-            // console.log(id);
             fetchStudents();
             resetForm();
         } catch (error) {

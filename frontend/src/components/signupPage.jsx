@@ -16,13 +16,11 @@ function SignupPage() {
     const [pass, setPass] = useState("");
 
     const submit = async (e) => {
-      console.log("hey")
         e.preventDefault();
         if (!email || !pass || !name) {
             alert("One or more fields are empty!");
         } else {
             try {
-                console.log("hey inside submit");
                 const response = await axios.post('http://localhost:5000/api/auth/createuser', {
                     name,
                     email,
@@ -34,7 +32,6 @@ function SignupPage() {
                     }
                 });
                 
-                console.log("response: ",response);
                 const { data } = response;
                 if (data.success) {
                     localStorage.setItem('token', data.authToken);

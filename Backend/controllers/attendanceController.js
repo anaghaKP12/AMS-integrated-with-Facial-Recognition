@@ -1,4 +1,4 @@
-//This page yet to be done
+
 const {Types: {ObjectId}} = require('mongoose');
 const Attendance = require('../models/Attendance');
 const Schedule = require('../models/Schedule');
@@ -15,12 +15,9 @@ exports.markAttendance = async (req, res) => {
         subject: subject,
         std_id: studentId,
       });
-      console.log("Found Attendance: ",attendance);
       if (attendance) {
         // Update attendance
-        console.log("Attendance found");
         if (status === 'Present') {
-          console.log("Incrementing attendance")
           attendance.Attended += 1;
         }
         attendance.classes += 1;
@@ -42,7 +39,6 @@ exports.markAttendance = async (req, res) => {
         });
         await attendance.save();
     }
-    // console.log(attendance)
     res.json(attendance);
 }catch(err){
     console.error(err);
@@ -61,9 +57,7 @@ exports.getCurrentClass = async (req, res) => {
         const now = new Date();
         const dayOfWeek = getDayOfWeekString(now.getDay());
         const currentTime = now.toTimeString().substr(0, 5);
-        console.log(req.user.id);
-        console.log(dayOfWeek);
-        console.log(currentTime);
+
        
         const query = {
             userId: new ObjectId(req.user.id),
@@ -71,10 +65,8 @@ exports.getCurrentClass = async (req, res) => {
             startTime: { $lte: currentTime },
             endTime: { $gte: currentTime },
         };
-      console.log(query);
         // Find the current class
         const currentClass = await Schedule.findOne(query);
-         console.log(currentClass)
          if(currentClass)
         res.json(currentClass);
     else
@@ -90,36 +82,20 @@ exports.getStudents = async (req, res) => {
     console.log("Inside getStudents");
     try {
         const { div, semester } = req.query;
-        console.log(div);
-        console.log(semester);
+
         const students = await Student.find({ div: div, semester });
-        console.log(students)
         res.json(students);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 };
 
-// Delete a class by ID
-// exports.deleteClass = async (req, res) => {
-//     try {
-//         const classData = await Schedule.findOne({ _id: req.params.id, userId: req.user.id });
-//         if (!classData) {
-//             return res.status(404).json({ message: 'Class not found' });
-//         }
-//         await Schedule.deleteOne({ _id: req.params.id, userId: req.user.id });
-//         res.json({ message: 'Class deleted' });
-//     } catch (err) {
-//         res.status(500).json({ message: err.message });
-//     }
-// };
+
 
 exports.getStudentAttendance = async (req, res) => {
   try {
-    console.log("inside getStudentAttendance")
     const studentId = req.params.studentId;
     const attendance = await Attendance.find({ std_id: studentId }); // Adjust query based on your schema
-    console.log(attendance)
     if (!attendance) {
       return res.status(404).json({ message: 'No attendance records found for this student.' });
     }

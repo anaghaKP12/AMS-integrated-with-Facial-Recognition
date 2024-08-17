@@ -34,7 +34,6 @@ const fetchCurrentClass = async () => {
       const response = await axios.get('http://localhost:5000/api/attendance', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
-      console.log("Insode fetch current class")
         console.log(response.data)
         setcurrentClass(response.data);
     } catch (error) {
@@ -56,18 +55,7 @@ const fetchStudents = async () => {
   }
 };
 
-// const fetchStudentAttendance = async (studentId) => {
-//   try {
-//     const response = await axios.get(`http://localhost:5000/api/attendance/student/${studentId}`, {
-//       headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-//     });
-//     console.log("response of fetchStudentAttendance",response.data);
-//     // Process the attendance data as needed
-//     setAttendanceData(response.data);
-//   } catch (error) {
-//     console.error('Error fetching student attendance:', error);
-//   }
-// };
+
 
 
   const handleMarkAttendance = async (studentId, status) => {
@@ -92,7 +80,6 @@ const fetchStudents = async () => {
           student.std_id === studentId ? { ...student, status } : student
         )
       );
-      // console.log("Students " ,students);
     alert('Attendance marked successfully');
     } catch (error) {
       console.error('Error marking attendance:', error);
@@ -138,8 +125,7 @@ const fetchStudents = async () => {
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
           {students.map((student) => {
-            // const studentAttendance = attendanceData.find(attendance => attendance.std_id === student.std_id) || {};
-            // console.log(studentAttendance)
+
             return(
             <tr key={student._id}>
               <td className="px-6 py-4 whitespace-nowrap">{student.std_name}</td>

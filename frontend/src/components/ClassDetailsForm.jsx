@@ -44,13 +44,11 @@ const ClassDetails = () => {
     };
 
     const handleSubmit = async (event) => {
-        console.log("before axios");
         event.preventDefault();
         try {
             await axios.post('http://localhost:5000/api/classes', classData, {
                 headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
-            console.log("After axios");
             fetchClasses();
             resetForm();
         } catch (error) {
