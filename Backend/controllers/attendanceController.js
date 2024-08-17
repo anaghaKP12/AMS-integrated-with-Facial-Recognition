@@ -95,7 +95,7 @@ exports.getStudents = async (req, res) => {
 exports.getStudentAttendance = async (req, res) => {
   try {
     const studentId = req.params.studentId;
-    const attendance = await Attendance.find({ std_id: studentId }); // Adjust query based on your schema
+    const attendance = await Attendance.find({ std_id: studentId }); 
     if (!attendance) {
       return res.status(404).json({ message: 'No attendance records found for this student.' });
     }
