@@ -1,1 +1,3 @@
-﻿ID,Roll No,Name,Department,Time,Date,Status
+﻿ID,Roll No,Name,Department,Time ,Date,Status
+0,0100,Anagha,Computer Science,11:33:03,30/07/2024,Present
+1,0101,Swapnil,Computer Science,11:34:39,30/07/2024,Present

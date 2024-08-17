@@ -25,7 +25,7 @@ attendance_file = os.path.join(current_dir, 'attendance.csv')
 
 def mark_attendance(i, r, n, d):
     print("Inside attendance.csv")
-    print(i, r, n, d)
+    # print(i, r, n, d)
     with open(attendance_file, "r+", newline="\n") as f:
         myDataList = f.readlines()
         name_list = []
@@ -133,14 +133,17 @@ def recognize_face():
                 id,predict=clf.predict(gray_image[y:y+h,x:x+w])
                 confidence=int((100*(1-predict/300)))
                 student = student_collection.find_one({"std_id": str(id)})
-                print(student)
+                print("Printing Student : ",student)
                 if student:
-                        student_data = {
-                            "id": student.get("std_id"),
-                            "name": student.get("std_name"),
-                            "roll": student.get("roll"),
-                            "department": student.get("dep")
-                        }
+                    student_data.update({
+                        "id": student.get("std_id"),
+                        "name": student.get("std_name"),
+                        "roll": student.get("roll"),
+                        "department": student.get("dep"),
+                        "semester": student.get("semester"),
+                        "status": 'Present',
+                        "div": student.get("div")
+                    })
 
                 
 
@@ -181,7 +184,8 @@ def recognize_face():
 
         video_cap.release()
         cv2.destroyAllWindows()
-        return jsonify(student_data)          
+        print("Returning student data: ",student_data)
+        return jsonify(student_data)
 
 
 

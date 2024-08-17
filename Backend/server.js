@@ -32,6 +32,10 @@ app.use((req, res, next) => {
   next();
 });
 app.use('/api/students', studentRoutes);
+app.use('/api/auth',require('./routes/authRoutes'))
+app.use('/api/classes',require('./routes/schedule'))
+app.use('/api/attendance',require('./routes/attendanceRoutes'))
+
 // app.use('/api/photos', photoRoutes);
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));

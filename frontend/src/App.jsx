@@ -4,9 +4,13 @@ import ImageComponent from './components/ImageComponent';
 import ButtonComponent from './components/ButtonComponent';
 import HeaderComponent from './components/HeaderComponent';
 import { Link } from 'react-router-dom';
+
 import './styles.css';
 
 const App = () => {
+
+
+
     const handleTrainFace = async () => {
         try {
             const response = await axios.post('http://127.0.0.1:5000/api/train_classifier');
@@ -17,21 +21,7 @@ const App = () => {
             alert('Error training classifier');
         }
     };
-    const handleFaceDetector = async () => {
-        try {
-            console.log("Inside function")
-            const response = await axios.post('http://127.0.0.1:5000/api/recognize_face');
-            console.log(response.data);
-            if (response.data) {
-                alert(`Recognized Student ID`);
-            } else {
-                alert('No face recognized');
-            }
-        } catch (error) {
-            console.error('Error detecting face:', error);
-            alert('Error detecting face');
-        }
-    };
+
     return (
         <div className="app bg-gray-100 h-full">
             <div className="top-images flex justify-center items-center mb-6">
@@ -49,12 +39,20 @@ const App = () => {
                 </div>
                 <div className="button-group bg-white shadow-md rounded-lg p-4 flex flex-col items-center justify-center">
                     <ImageComponent src="/img/Main-1.jpg" width="200px" height="200px" />
-                    <ButtonComponent text="Face Detector" onClick={handleFaceDetector} />
+                <Link to="/face_recog">
+                    <ButtonComponent text="Face Detector"  />
+                </Link>
                 </div>
                 <div className="button-group bg-white shadow-md rounded-lg p-4 flex flex-col items-center justify-center">
                     <ImageComponent src="/img/attendence.jpg" width="200px" height="200px" />
                     <Link to="/attendance">
                     <ButtonComponent text="Attendance" onClick={() => handleButtonClick('attendance')} />
+                    </Link>
+                </div>
+                <div className="button-group bg-white shadow-md rounded-lg p-4 flex flex-col items-center justify-center">
+                    <ImageComponent src="/img/attendence.jpg" width="200px" height="200px" />
+                    <Link to="/class">
+                    <ButtonComponent text="Class Details" onClick={() => handleButtonClick('class-details')} />
                     </Link>
                 </div>
                 <div className="button-group bg-white shadow-md rounded-lg p-4 flex flex-col items-center justify-center">
